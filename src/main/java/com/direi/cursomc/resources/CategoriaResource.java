@@ -5,6 +5,7 @@ import java.net.URI;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,8 +24,9 @@ public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
+	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		
 		Categoria cat = service.buscar(id);
 		
@@ -43,6 +45,13 @@ public class CategoriaResource {
 	public ResponseEntity<Void> update(@RequestBody Categoria obj,@PathVariable Integer id){
 		obj.setId(id);
 		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Categoria> detele(@PathVariable Integer id) {
+		
+		service.detele(id);		
 		return ResponseEntity.noContent().build();
 	}
 }
