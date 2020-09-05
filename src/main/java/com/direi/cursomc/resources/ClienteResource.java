@@ -1,5 +1,6 @@
 package com.direi.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,11 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.direi.cursomc.domain.Cliente;
 import com.direi.cursomc.dto.ClienteDTO;
+import com.direi.cursomc.dto.ClienteNewDTO;
+import com.direi.cursomc.repositories.EnderecoRepository;
 import com.direi.cursomc.services.ClienteService;
 
 @RestController
@@ -28,11 +33,23 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
+	@Autowired
+	EnderecoRepository endereco;
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<Cliente> buscar(@PathVariable Integer id){
 		Cliente cliente = service.buscar(id);
 		
 		return ResponseEntity.ok(cliente);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> inserir(@Valid @RequestBody ClienteNewDTO objDto){
+		Cliente obj = service.fromDto(objDto);
+		obj = service.insert(obj);
+		endereco.saveAll(obj.getEnderecos());
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+			return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping(value = "/{id}")

@@ -33,9 +33,10 @@ public class CategoriaService {
 		categoria.setId(null);
 		return repo.save(categoria);
 	}
-	public Categoria update(Categoria categoria) {
-		buscar(categoria.getId());
-		return repo.save(categoria);
+	public Categoria update(Categoria obj) {
+		Categoria newObj = buscar(obj.getId());
+		updateData(newObj,obj);
+		return repo.save(newObj);
 	}
 	public void detele(Integer id) {
 		buscar(id);
@@ -57,5 +58,9 @@ public class CategoriaService {
 	
 	public Categoria fromDto(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj ) {
+		newObj.setNome(obj.getNome());
 	}
 }
