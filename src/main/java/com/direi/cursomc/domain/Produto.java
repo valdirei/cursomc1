@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.direi.cursomc.dto.ProdutoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -42,6 +43,7 @@ public class Produto implements Serializable{
 	public Produto() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	public Produto(Integer id, String nome, Double preco) {
 		this.id = id;
 		this.nome = nome;
