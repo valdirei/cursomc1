@@ -70,6 +70,13 @@ public class Pedido implements Serializable {
 		this.instante = instante;
 	}
 
+	public double getTotalPedido() {
+		double total = 0.0;
+		for(ItemPedido i : itens) {
+			total += i.getSubTotal();
+		}
+		return total;
+	}
 
 	/*public Pagamento getPagamento() {
 		return pagamento;
