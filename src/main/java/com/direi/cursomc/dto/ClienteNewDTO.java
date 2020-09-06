@@ -2,19 +2,36 @@ package com.direi.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import com.direi.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@NotEmpty(message = "O campo não pode ser vazio")
+	@Size(min = 5, max = 120, message = "O campo de ter entre 5 e 120 caracteres")
 	private String nome;
+	@NotEmpty
+	@Email(message = "Email deve ser digitado corretamente.")
 	private String email;
+	
+	@NotEmpty(message = "CPF ou CNPJ é obrigatório.")
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	@NotEmpty(message = "O campo não pode ser vazio")
 	private String logradouro;
+	@NotEmpty(message = "O campo não pode ser vazio")
 	private String numero;
 	private String complemento;
+	@NotEmpty(message = "O campo não pode ser vazio")
 	private String bairro;
+	
 	private String cep;
 	
 	private Integer cidade_id;
