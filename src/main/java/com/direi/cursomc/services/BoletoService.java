@@ -10,9 +10,9 @@ import com.direi.cursomc.domain.PagamentoComBoleto;
 @Service
 public class BoletoService {
 
-	public void preencherPagamentoComBoleto(PagamentoComBoleto pagto, Date instateDoPedido) {
+	public void preencherPagamentoComBoleto(PagamentoComBoleto pagto, Date instanteDoPedido) {
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(instateDoPedido);
+		cal.setTime(instanteDoPedido);
 		cal.add(Calendar.DAY_OF_MONTH, 7);
 		pagto.setDataVencimento(cal.getTime());
 	}

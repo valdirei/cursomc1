@@ -3,37 +3,33 @@ package com.direi.cursomc.resources.exception;
 import java.io.Serializable;
 
 public class FieldMessage implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 	
-	private String field;
-	
-	private String msg;
+	private String fieldName;
+	private String message;
 	
 	public FieldMessage() {
-		
 	}
 
-	public FieldMessage(String field, String msg) {
+	public FieldMessage(String fieldName, String message) {
 		super();
-		this.field = field;
-		this.msg = msg;
+		this.fieldName = fieldName;
+		this.message = message;
 	}
 
-	public String getField() {
-		return field;
+	public String getFieldName() {
+		return fieldName;
 	}
 
-	public void setField(String field) {
-		this.field = field;
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
 	}
 
-	public String getMsg() {
-		return msg;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setMessage(String message) {
+		this.message = message;
 	}
-	
 }

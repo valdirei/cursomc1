@@ -4,39 +4,35 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.direi.cursomc.domain.Cliente;
+import com.direi.cursomc.services.validation.ClienteUpdate;
 
-public class ClienteDTO implements Serializable{
+@ClienteUpdate
+public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
 	
-	@NotEmpty(message = "O campo não pode ser vazio")
-	@Size(min = 5, max = 120, message = "O campo de ter entre 5 e 120 caracteres")
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
-	@NotEmpty
-	@Email
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Email(message="Email inválido")
 	private String email;
 	
 	public ClienteDTO() {
-		
 	}
 
-	public ClienteDTO(Integer id, String nome, String email) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
+	public ClienteDTO(Cliente obj) {
+		id = obj.getId();
+		nome = obj.getNome();
+		email = obj.getEmail();
 	}
 	
-	public ClienteDTO(Cliente cliente) {
-		id = cliente.getId();
-		nome = cliente.getNome();
-		email = cliente.getEmail();
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -60,7 +56,4 @@ public class ClienteDTO implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-
 }

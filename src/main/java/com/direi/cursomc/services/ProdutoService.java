@@ -15,25 +15,26 @@ import com.direi.cursomc.repositories.CategoriaRepository;
 import com.direi.cursomc.repositories.ProdutoRepository;
 import com.direi.cursomc.services.exception.ObjectNotFoundException;
 
+
+
 @Service
 public class ProdutoService {
-
+	
 	@Autowired
 	private ProdutoRepository repo;
+	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	public Produto buscar(Integer id) {
-		//Optional<Produto> Produto = repo.findById(id);
-		
+	
+	public Produto find(Integer id) {
 		Optional<Produto> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-		"Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
-
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
 	}
-	
-	public Page<Produto> search(String nome, List<Integer> ids,Integer page, Integer linesPage, String orderBy,String direction){
-		PageRequest pageRequest = PageRequest.of(page, linesPage, Direction.fromString(direction),orderBy);
-		List<Categoria> categorias = categoriaRepository.findAllById(ids); 
-		return repo.findDistinctByNomeContainingAndCategoriasIn(nome,categorias,pageRequest);
+
+	public Page<Produto> search(String nome, List<Integer> ids, Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		List<Categoria> categorias = categoriaRepository.findAllById(ids);
+		return repo.findDistinctByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);	
 	}
 }
