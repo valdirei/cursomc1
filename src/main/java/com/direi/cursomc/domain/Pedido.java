@@ -26,11 +26,11 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonFormat(pattern =  "dd/mm/yyyy")
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date instante;
 	
-	/*@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
-	private Pagamento pagamento;*/
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+	private Pagamento pagamento;
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
@@ -78,13 +78,13 @@ public class Pedido implements Serializable {
 		return total;
 	}
 
-	/*public Pagamento getPagamento() {
+	public Pagamento getPagamento() {
 		return pagamento;
 	}
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
-	}*/
+	}
 	
 	public Cliente getCliente() {
 		return cliente;
