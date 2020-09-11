@@ -33,10 +33,12 @@ import com.direi.cursomc.repositories.PedidoRepository;
 import com.direi.cursomc.repositories.ProdutoRepository;
 
 
-
 @Service
 public class DBService {
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	@Autowired
@@ -56,8 +58,7 @@ public class DBService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
-	@Autowired
-	BCryptPasswordEncoder bEncoder;
+	
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -117,11 +118,11 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
-		Cliente cli1 = new Cliente(null, "Maria Silva", "direicursos@gmail.com", "36378912377", TipoCliente.PESSOAFISICA,bEncoder.encode("123"));
+		Cliente cli1 = new Cliente(null, "Maria Silva", "direicursos@gmail.com", "36378912377", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
 		
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
-		Cliente cli2 = new Cliente(null, "Valdirei Silva", "direioutros@gmail.com", "36378912377", TipoCliente.PESSOAFISICA,bEncoder.encode("123"));
+		Cliente cli2 = new Cliente(null, "Valdirei Silva", "direioutros@gmail.com", "36378912377", TipoCliente.PESSOAFISICA,bCryptPasswordEncoder.encode("123"));
 		cli2.addPerfil(Perfil.ADMIN);
 		cli1.getTelefones().addAll(Arrays.asList("111111111", "22222222"));
 		
